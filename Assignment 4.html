@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>assignment-4</title>
+	<link rel="stylesheet" type="text/css" href="cssstyle.css">
+	<link rel="stylesheet" type="text/css" href="css/base/jquery-ui-1.10.4.custom.css">
+	<link type="text/css" href="jquery-ui-1.10.4.custom.min.css" rel="stylesheet">
+	<link type="text/css" href="bootstrap.css" rel="stylesheet">
+	<link type="text/css" href="bootstrap-datepicker.css" rel="stylesheet">
+	<link type="text/css" href="bootstrap.min.css" rel="stylesheet">
+	<link type="text/css" href="bootstrap-theme.css" rel="stylesheet">
+	<link type="text/css" href="bootstrap-theme.min.css" rel="stylesheet">
+	<link type="text/css" href="bootstrap-tagsinput.css" rel="stylesheet">
+	<script src="js/jquery-1.10.2.js"></script>
+	<script src="bootstrap-tagsinput.js"></script>
+	<script src="js/jquery-ui-1.10.4.custom.js"></script>
+	<script src="js/bootstrap.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="bootstrap-datepicker.min.js"></script>
+	<script>
+		$(function() {
+			$( "#accordion" ).accordion();
+			var availableTags = [
+				"ActionScript",
+				"AppleScript",
+				"Asp",
+				"BASIC",
+				"C",
+				"C++",
+				"Clojure",
+				"COBOL",
+				"ColdFusion",
+				"Erlang",
+				"Fortran",
+				"Groovy",
+				"Haskell",
+				"Java",
+				"JavaScript",
+				"Lisp",
+				"Perl",
+				"PHP",
+				"Python",
+				"Ruby",
+				"Scala",
+				"Scheme"
+			];
+
+			$( "#autocomplete" ).autocomplete({
+				source: availableTags
+			});
+
+			$( "#radioset" ).buttonset();
+
+			$( "#tabs" ).tabs();
+
+			$( ".selector" ).tabs({
+				active: 0
+			});
+
+			$( "#dialog" ).dialog({
+				autoOpen: false,
+				width: 400,
+				buttons: [
+					{
+						text: "Ok",
+						click: function() {
+							$( this ).dialog( "close" );
+						}
+					},
+					{
+						text: "Cancel",
+						click: function() {
+							$( this ).dialog( "close" );
+						}
+					}
+				]
+			});
+
+			// Link to open the dialog
+			$( "#dialog-link" ).click(function( event ) {
+				$( "#dialog" ).dialog( "open" );
+				event.preventDefault();
+			});
+
+			$( "#datepicker" ).datepicker({
+			});
+
+			$( "#accordion" ).accordion();
+
+			$( "#slider" ).slider({
+				range: true,
+				values: [ 17, 67 ]
+			});
+
+			$( "#progressbar" ).progressbar({
+				value: 20
+			});
+
+			// Hover states on the static widgets
+			$( "#dialog-link, #icons li" ).hover(
+				function() {
+					$( this ).addClass( "ui-state-hover" );
+				},
+				function() {
+					$( this ).removeClass( "ui-state-hover" );
+				}
+			);
+
+			$( "input" ).blur(function() {
+				if ( $(this).parent().hasClass("bootstrap-tagsinput") ) {
+					if ($("#interests").val() == ""){
+						$("#interests").closest( ".form-group" ).addClass( "has-error" );
+						$("#interests").next( "small" ).removeClass("hidden").addClass("text-danger");
+					}
+					else {
+						$("#interests").closest( ".form-group" ).removeClass( "has-error" ).addClass("has-success");
+						$("#interests").next( "small" ).addClass("hidden").removeClass("text-danger");
+					}
+				} else {
+					if ($( this ).val() == ""){
+						$( this ).closest( ".form-group" ).addClass( "has-error" );
+						$( this ).next( "small" ).removeClass("hidden").addClass("text-danger");
+					}
+					else {
+						$( this ).closest( ".form-group" ).removeClass( "has-error" ).addClass("has-success");
+						$( this ).next( "small" ).addClass("hidden").removeClass("text-danger");
+					}
+				}
+			});
+
+			$( "#email" ).blur(function() {
+				if ($( this ).val() == ""){
+					$( this ).closest( ".form-group" ).addClass( "has-error" );
+					$( this ).next( "small" ).removeClass("hidden").addClass("text-danger");
+					document.getElementById("e1").innerHTML = "Email required";
+				}
+				else if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(myForm.email.value)) {
+					$( "#email" ).next( "small" ).css("display", "none");
+					$( this ).closest( ".form-group" ).removeClass("has-warning").addClass( "has-success" );
+				}
+				else {
+					$( this ).closest( ".form-group" ).addClass( "has-warning" );
+					$( this ).next( "small" ).removeClass("hidden").addClass("text-warning");
+					document.getElementById("e1").innerHTML = "Email invalid";
+				}
+			});
+
+			$( "#eemail" ).blur(function() {
+				if ($( this ).val() == ""){
+					$( this ).closest( ".form-group" ).addClass( "has-error" );
+					$( this ).next( "small" ).removeClass("hidden").addClass("text-danger");
+					document.getElementById("ee1").innerHTML = "Email required";
+				}
+				else if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(myForm.eemail.value)) {
+					$( "#eemail" ).next( "small" ).css("display", "none");
+					$( this ).closest( ".form-group" ).removeClass("has-warning").addClass( "has-success" );
+				}
+				else {
+					$( this ).closest( ".form-group" ).addClass( "has-warning" );
+					$( this ).next( "small" ).removeClass("hidden").addClass("text-warning");
+					document.getElementById("ee1").innerHTML = "Email invalid";
+				}
+			});
+
+			$( "#ephone" ).blur(function() {
+				if ($( this ).val() == ""){
+					$( this ).closest( ".form-group" ).addClass( "has-warning" );
+					$( this ).next( "small" ).removeClass("hidden").addClass("text-warning");
+					document.getElementById("ep1").innerHTML = "Phone number required";
+				}
+				else if (/^\d{10}$/.test(myForm.ephone.value)) {
+					$( "#ephone" ).next( "small" ).css("display", "none");
+					$( this ).closest( ".form-group" ).removeClass("has-warning").addClass( "has-success" );
+
+				}
+				else {
+					$( this ).closest( ".form-group" ).addClass( "has-warning" );
+					$( this ).next( "small" ).removeClass("hidden").addClass("text-warning");
+					document.getElementById("ep1").innerHTML = "Phone number invalid";
+				}
+			});
+
+			$( "#country" ).blur(function() {
+				if ($( this ).val() == ""){
+					$( this ).closest( ".form-group" ).addClass( "has-error" );
+					$( this ).next( "small" ).removeClass("hidden").addClass("text-danger");
+				}
+				else {
+					$( this ).closest( ".form-group" ).removeClass( "has-error" ).addClass("has-success");
+					$( this ).next( "small" ).addClass("hidden").removeClass("text-danger");
+				}
+			});
+		});
+
+		function val()
+			{
+					var a = document.forms["myForm"]["fname"].value;
+					var b = document.forms["myForm"]["lname"].value;
+					var c = document.forms["myForm"]["email"].value;
+					var d = document.forms["myForm"]["password"].value;
+					var e = document.forms["myForm"]["datepicker"].value;
+					var f = document.forms["myForm"]["gender"].value;
+					var g = document.forms["myForm"]["country"].value;
+					var h = document.forms["myForm"]["eemail"].value;
+					var i = document.forms["myForm"]["ephone"].value;
+					var j = document.forms["myForm"]["interests"].value;
+					var x = 0;
+					var y = 0;
+					if (a=="") {
+						$( "#fname" ).closest( ".form-group" ).addClass( "has-error" );
+						$( "#fname" ).next( "small" ).removeClass("hidden").addClass("text-danger");
+						x += 1;
+					} else {
+						$( "#fname" ).next( "small" ).css("display", "none");
+					}
+
+					if (b=="") {
+						$( "#lname" ).closest( ".form-group" ).addClass( "has-error" );
+						$( "#lname" ).next( "small" ).removeClass("hidden").addClass("text-danger");
+						x += 1;
+					} else {
+						$( "#lname" ).next( "small" ).css("display", "none");
+					}
+
+					if (c=="") {
+						$( "#email" ).closest( ".form-group" ).addClass( "has-error" );
+						$( "#email" ).next( "small" ).removeClass("hidden").addClass("text-danger");
+						document.getElementById("e1").innerHTML = "Email required";
+
+						x += 1;
+					} else if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(myForm.email.value)) {
+						$( "#email" ).next( "small" ).css("display", "none");
+					} else {
+						$( "#email" ).closest( ".form-group" ).addClass( "has-error" );
+						$( "#email" ).next( "small" ).removeClass("hidden").addClass("text-warning");
+						document.getElementById("e1").innerHTML = "Email invalid";
+
+						x += 1;
+						}
+
+					if (d=="") {
+						$( "#password" ).closest( ".form-group" ).addClass( "has-error" );
+						$( "#password" ).next( "small" ).removeClass("hidden").addClass("text-danger");
+						x += 1;
+					}
+					else {
+						$( "#password" ).next( "small" ).css("display", "none");
+					}
+
+					if (e=="") {
+						$( "#datepicker" ).closest( ".form-group" ).addClass( "has-error" );
+						$( "#datepicker" ).next( "small" ).removeClass("hidden").addClass("text-danger");
+						x += 1;
+					}
+					else {
+						$( "#datepicker" ).next( "small" ).css("display", "none");
+					}
+
+					if (f=="") {
+						$( "#gender" ).closest( ".form-group" ).addClass( "has-error" );
+						$( "#gender" ).next( "small" ).removeClass("hidden").addClass("text-danger");
+						x += 1;
+					}
+					else {
+						$( "#gender" ).next( "small" ).css("display", "none");
+					}
+
+					if (g=="") {
+						$( "#country" ).closest( ".form-group" ).addClass( "has-error" );
+						$( "#country" ).next( "small" ).removeClass("hidden").addClass("text-danger");
+						document.getElementById("c1").innerHTML = "Field required";
+						x += 1;
+					}
+					else {
+						$( "#country" ).next( "small" ).css("display", "none");
+					}
+
+					if (h==""){
+						$( "#eemail" ).closest( ".form-group" ).addClass( "has-error" );
+						$( "#eemail" ).next( "small" ).removeClass("hidden").addClass("text-danger");
+						document.getElementById("ee1").innerHTML = "Email required";
+
+						y += 1;
+					}
+					else if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(myForm.eemail.value)) {
+						$( "#eemail" ).next( "small" ).css("display", "none");
+					}
+					else {
+						$( "#eemail" ).closest( ".form-group" ).addClass( "has-error" );
+						$( "#eemail" ).next( "small" ).removeClass("hidden").addClass("text-danger");
+						document.getElementById("ee1").innerHTML = "Email invalid";
+
+						y += 1;
+					}
+
+					if (i==""){
+						$( "#ephone" ).closest( ".form-group" ).addClass( "has-error" );
+						$( "#ephone" ).next( "small" ).removeClass("hidden").addClass("text-danger");
+						document.getElementById("ep1").innerHTML = "Phone number required";
+						y += 1;
+					}
+					else if (/^\d{10}$/.test(myForm.ephone.value)) {
+						$( "#ephone" ).next( "small" ).css("display", "none");
+					}
+					else {
+						$( "#ephone" ).closest( ".form-group" ).addClass( "has-error" );
+						$( "#ephone" ).next( "small" ).removeClass("hidden").addClass("text-danger");
+						document.getElementById("ep1").innerHTML = "Phone number invalid";
+						y += 1;
+					}
+
+					if (j=="") {
+						$( "#interests" ).closest( ".form-group" ).addClass( "has-error" );
+						$( "#interests" ).next( "small" ).removeClass("hidden").addClass("text-danger");
+						y += 1;
+					}
+					else {
+						$( "#interests" ).closest( ".form-group" ).removeClass("has-error").addClass("has-success");
+						$( "#interests" ).next( "small" ).css("display", "none");
+					}
+
+					if (x > 0){
+						var index = $('#tabs a[id="tab-1"]').parent().index();
+						$("#tabs").tabs("option", "active", index);
+					}
+					else if (y > 0){
+						var index = $('#tabs a[id="tab-3"]').parent().index();
+						$("#tabs").tabs("option", "active", index);
+					}
+					return false;
+			}
+	</script>
+</head>
+<body>
+	<form class="form-horizontal" name="myForm" style="height:550px; margin: 4% 35% 10% 10%;" onsubmit="return val()" method="post">
+		<div id="tabs">
+			<ul class="tabs" style="margin-bottom: 15px;">
+				<li><a id="tab-1" href="#tabs-1">Home</a></li>
+				<li><a id="tab-2" href="#tabs-2">About</a></li>
+				<li><a id="tab-3" href="#tabs-3">Contact</a></li>
+			</ul>
+			<div id="tabs-1">
+				<div class="form-group" id="fn">
+					<label class="col-md-4 control-label" for="fname">*First Name:</label>
+					<div class="col-md-4">
+						<input id="fname" class="form-control" style="border-radius:2px;" type="text" name="fname" maxlength="25" placeholder="First Name">
+						<small class="hidden">First Name required</small>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-4 control-label" for="lname:">*Last Name:</label>
+					<div class="col-md-4">
+						<input id= "lname" class="check-with-label form-control" style="border-radius:2px;" type="text" name="lname" maxlength="25" placeholder="Last Name">
+						<small class="hidden">Last Name required</small>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-4 control-label" for="email:">*EmailId:</label>
+					<div class="col-md-4">
+						<input id="email" class="form-control" style="border-radius:2px;" type="text" name="email" placeholder="Email Address">
+						<small id="e1" class="hidden"></small>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-4 control-label" for="password:">*Password:</label>
+					<div class="col-md-4">
+						<input id= "password" class="form-control" type="password" name="password" maxlength="25" placeholder="Password">
+						<small class="hidden">Password required</small>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-4 control-label" for="date:">*Date:</label>
+					<div class="col-md-4">
+						<input class="form-control" type="text" name="date" id="datepicker" placeholder="MM/DD/YYYY">
+						<small class="hidden">Date required</small>
+					</div>
+				</div>
+				<div class="form-group">
+				   	<label class="col-md-4 control-label" for="gender">*Gender:</label>
+					<div class="col-md-8" id="gender">
+				    <div class="radio">
+				    <label>
+				    <input name="gender" value="male" type="radio">
+				    	Male
+					</label>
+				    </div>
+				    <div class="radio">
+				    <label>
+				    <input name="gender" value="female" type="radio">
+				    	Female
+					</label>
+				    </div>
+				    <div class="radio">
+				    <label>
+				    <input name="gender" value="other" type="radio">
+				    	Other
+					</label>
+				    </div>
+				   	</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-4 control-label" for="country">*Country:</label>
+					<div class="col-md-4" style="border-radius:2px">
+						<select class="form-control" id="country" name="country">
+							<option value="" type="disabled">Select</option>
+							<option value="India">India</option>
+							<option value="America">America</option>
+							<option value="Europe">Europe</option>
+							<option value="Australia">Australia</option>
+							<option value="China">China</option>
+							<option value="Brazil">Brazil</option>
+							<option value="Africa">Africa</option>
+						</select>
+						<small id="c1"></small>
+					</div>
+				</div>
+			</div>
+				<div id="tabs-2">
+					<div id="accordion">
+						<h3>About Family (Optional)</h3>
+						<div>
+							<p>
+								<textarea class="form-control" name="post-text" cols="76" rows="7" tabindex="101" data-min-length="" maxlength="200"></textarea>
+							</p>
+						</div>
+						<h3>About Qualification (Optional)</h3>
+						<div>
+							<p>
+								<textarea class="form-control" name="post-text" cols="76" rows="7" tabindex="101" data-min-length="" maxlength="200"></textarea>
+							</p>
+						</div>
+						<h3>Hobbies (Optional)</h3>
+						<div>
+							<p>
+								<textarea class="form-control" name="post-text" cols="76" rows="7" tabindex="101" data-min-length="" maxlength="200"></textarea>
+							</p>
+						</div>
+					</div>
+				</div>
+			<div id="tabs-3">
+				<div class="form-group">
+					<label class="col-md-4 control-label has-success" for="eemail:">*Emergency email:</label>
+					<div class="col-md-4">
+						<input class="form-control" id= "eemail" type="text" style="border-radius:2px;" name="eemail" placeholder="Emergency Email">
+						<small id="ee1" class="hidden"></small>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-4 control-label" for="ephone:">*Emergency Phone:</label>
+					<div class="col-md-4">
+						<input class="form-control" id= "ephone" type="text" style="border-radius:2px;" name="ephone" maxlength="10" placeholder="Emergency Phone">
+						<small id="ep1" class="hidden"></small>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-4 control-label" for="interests:">*Interests:</label>
+					<div class="col-md-4">
+						<input class="form-control" id= "interests" id="tagPlaces" type="text" style="border-radius:2px;" data-role="tagsinput">
+						<small class="hidden">Interests are required</small>
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-4 control-label" for="Address">Address:</label>
+					<div class="col-sm-8"><textarea id="address" class="form-control" style="border-radius:2px; width:47%;" name="post-text" cols="10" rows="3" tabindex="101" data-min-length="" maxlength="200"></textarea>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4 col-md-offset-4 form-group" style="margin-left:30%; margin-top:20px;">
+			<input type="submit" id="error" value="Submit">
+		</div>
+	</form>
+</body>
+</html>

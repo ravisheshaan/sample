@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>assignment-2</title>
+		<link rel="stylesheet" type="text/css" href="cssstyle.css">
+		<link rel="stylesheet" type="text/css" href="css/base/jquery-ui-1.10.4.custom.css">
+		<link type="text/css" href="bootstrap.css" rel="stylesheet">
+		<link type="text/css" href="bootstrap.min.css" rel="stylesheet">
+		<link type="text/css" href="bootstrap-theme.css" rel="stylesheet">
+		<link type="text/css" href="bootstrap-theme.min.css" rel="stylesheet">
+		<script src="js/jquery-1.10.2.js"></script>
+		<script src="js/jquery-ui-1.10.4.custom.js"></script>
+		<script src="js/bootstrap.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script>
+			var html = "";
+			$.ajax( {
+				url : "https://api.github.com/users",
+				success : function ( result ) {
+					console.log(result)
+					$.each( result, function (i, object) {
+						html +=
+						'<div class="row well" ><div class="col-sm-3"><img width="100%" src="' + object.avatar_url + '"></div>'+
+						'<div class="col-sm-9"><h1><a style="text-transform:capitalize" target="_blank" href="' + object.html_url + '">' + object.login + '</a></h1>' +
+						'<a style="text-transform:capitalize" href="' + object.followers_url + '">' + "Followers Link:" + object.followers_url + '</a><br>' +
+						'<a style="text-transform:capitalize" href="' + object.following_url + '">' + "Followings Link:" + object.following_url + '</a></div></div>'
+					});
+					$("#data1").append(html);
+				}
+			});
+		</script>
+	</head>
+	<body>
+		<div class="container">
+			<div align="absolute">
+				<h1 class="page-header">GitHub API Online Users<small>demo </small></h1>
+			</div>
+			<div id="data1">
+			</div>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE HTML>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>assignment-3</title>
+		<link rel="stylesheet" type="text/css" href="cssstyle.css">
+		<link rel="stylesheet" type="text/css" href="css/base/jquery-ui-1.10.4.custom.css">
+		<link type="text/css" href="bootstrap.css" rel="stylesheet">
+		<link type="text/css" href="bootstrap.min.css" rel="stylesheet">
+		<link type="text/css" href="bootstrap-theme.css" rel="stylesheet">
+		<link type="text/css" href="bootstrap-theme.min.css" rel="stylesheet">
+		<script src="js/jquery-1.10.2.js"></script>
+		<script src="js/jquery-ui-1.10.4.custom.js"></script>
+		<script src="js/bootstrap.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<script>
+		$(function(){
+			ClearEntry();
+		})
+		$(document).keydown(function(e) {
+			if (e.which == 8) $(document.getElementById('b').click())
+			if (e.which == 49) $(document.getElementById('1').click())
+    		if (e.which == 50) $(document.getElementById('2').click())
+			if (e.which == 51) $(document.getElementById('3').click())
+    		if (e.which == 52) $(document.getElementById('4').click())
+			if (e.which == 53) $(document.getElementById('5').click())
+    		if (e.which == 54) $(document.getElementById('6').click())
+			if (e.which == 55) $(document.getElementById('7').click())
+    		if (e.which == 56) $(document.getElementById('8').click())
+			if (e.which == 57) $(document.getElementById('9').click())
+    		if (e.which == 48) $(document.getElementById('0').click())
+			if (e.which == 77) $(document.getElementById('m').click())
+    		if (e.which == 191) $(document.getElementById('/').click())
+			if (e.which == 80) $(document.getElementById('p').click())
+			if (e.which == 189) $(document.getElementById('-').click())
+			if (e.which == 187) $(document.getElementById('=').click())
+		});
+		</script>
+	<head>
+<body>
+	<form name="key" action="">
+		<div>
+			<a class="row" style="height:250px"></a>
+		</div>
+		<div class="container plain screen" style="padding:10px 10px 10px 10px; width:29%; height:390px;">
+			<div class="row screen" style="margin: 10px 10px 2px 25px;">
+			  <input class="col-sm-6 plain" name="ReadOut2" id="output" style="font-size:18px" type="Text" value="0" class="col-md-4" readonly>
+			  <input class="col-sm-3 plain" name="ReadOut4" readonly>
+			  <input class="col-sm-3 plain" name="ReadOut3" style="font-size:18px" readonly>
+			  <input class="col-sm-6 plain" name="ReadOut" id="output" type="Text" value="0" class="col-md-4" readonly>
+			  <input class="col-sm-6 plain" readonly>
+			</div>
+			<div class="row">
+				<input class="col-sm-11 b" id="b" TYPE="button" NAME="clear" VALUE="clear" OnClick="Clear()">
+			</div>
+			<div class="row">
+				<input class="col-sm-2 b" id="7" TYPE="button" NAME="seven" VALUE="7" OnClick="NumPressed(7)">
+				<a class="col-sm-1" TYPE="text" VALUE="" ></a>
+				<input class="col-sm-2 b" id="8" TYPE="button" NAME="eight" VALUE="8" OnCLick="NumPressed(8)">
+				<a class="col-sm-1" TYPE="text" VALUE="" ></a>
+				<input class="col-sm-2 b" id="9" TYPE="button" NAME="nine" VALUE="9" OnClick="NumPressed(9)">
+				<a class="col-sm-1" TYPE="text" VALUE="" ></a>
+				<input class="col-sm-2 b operator" id="m" TYPE="button" NAME="multiply"  VALUE="*" OnClick="Operation('*')">
+			</div>
+			<div class="row">
+				<input class="col-sm-2 b" id="4" TYPE="button" NAME="four" VALUE="4" OnClick="NumPressed(4)">
+				<a class="col-sm-1" TYPE="text" VALUE="" ></a>
+				<input class="col-sm-2 b" id="5" TYPE="button" NAME="five" VALUE="5" OnClick="NumPressed(5)">
+				<a class="col-sm-1" TYPE="text" VALUE="" ></a>
+				<input class="col-sm-2 b" id="6" TYPE="button" NAME="six" VALUE="6" OnCLick="NumPressed(6)">
+				<a class="col-sm-1" TYPE="text" VALUE="" ></a>
+				<input class="col-sm-2 b operator" id="/" TYPE="button" NAME="divide" VALUE="/" OnClick="Operation('/')">
+			</div>
+			<div class="row">
+				<input class="col-sm-2 b" id="1" TYPE="button" NAME="one" VALUE="1" OnClick="NumPressed(1)">
+				<a class="col-sm-1" TYPE="text" VALUE="" ></a>
+				<input class="col-sm-2 b" id="2" TYPE="button" NAME="two" VALUE="2" OnClick="NumPressed(2)">
+				<a class="col-sm-1" TYPE="text" VALUE="" ></a>
+				<input class="col-sm-2 b" id="3" TYPE="button" NAME="three" VALUE="3" OnClick="NumPressed(3)">
+				<a class="col-sm-1" TYPE="text" VALUE="" ></a>
+				<input class="col-sm-2 b operator" id="p" TYPE="button" NAME="plus" VALUE="+" OnCLick="Operation('+')">
+			</div>
+			<div class="row">
+				<input class="col-sm-5 b" id="0" TYPE="button" NAME="zero" VALUE="0" OnCLick="NumPressed(0)">
+				<a class="col-sm-1" TYPE="text" VALUE="" ></a>
+				<input class="col-sm-2 b eval" id="=" TYPE="button" NAME="equal" VALUE="=" OnCLick="Operation('=')">
+				<a class="col-sm-1" TYPE="text" VALUE=""></a>
+				<input class="col-sm-2 b operator" id="-" TYPE="button" NAME="minus" VALUE="-" OnClick="Operation('-')">
+			</div>
+		</div>
+	</form>
+	<script>
+		var FKey = document.key;
+		var Accumulate = "";
+		var PendingOp = "";
+
+		function NumPressed (Num) {
+			if (FKey.ReadOut.value == "0")
+				FKey.ReadOut.value = Num;
+			else
+				FKey.ReadOut.value += Num;
+		}
+
+		function Operation (Op) {
+			var Readout = FKey.ReadOut.value;
+			if (FKey.ReadOut.value) {
+				if (PendingOp != "=") {
+					if ( '+' == PendingOp )  {
+						Accumulate += parseFloat(Readout);
+					} else if ( '-' == PendingOp ) {
+						Accumulate -= parseFloat(Readout);
+					} else if ( '/' == PendingOp ) {
+						Accumulate /= parseFloat(Readout);
+					} else if ( '*' == PendingOp ) {
+						Accumulate *= parseFloat(Readout);
+					} else {
+						Accumulate = parseFloat(Readout);
+					}
+					FKey.ReadOut2.value = Accumulate;
+					ReadOut = "";
+					FKey.ReadOut.value = "";
+					if (Op != "=") {
+						FKey.ReadOut3.value = Op;
+					}
+					else {
+						FKey.ReadOut3.value = "";
+					}
+					PendingOp = Op;
+				} else if (FKey.ReadOut2.value && PendingOp == "=") {
+					FKey.ReadOut2.value = FKey.ReadOut.value;
+					ReadOut = "";
+					FKey.ReadOut.value = "";
+					if (Op != "=") {
+						FKey.ReadOut3.value = Op;
+					}
+					else {
+						FKey.ReadOut3.value = "";
+					}
+					PendingOp = Op;
+				}
+			} else {
+				if (Op != "=") {
+					FKey.ReadOut3.value = Op;
+				}
+				else {
+					FKey.ReadOut3.value = "";
+				}
+				PendingOp = Op;
+			}
+		}
+
+		function ClearEntry () {
+			FKey.ReadOut.value = "0";
+			FKey.ReadOut2.value = "";
+			FKey.ReadOut3.value = "";
+			FlagNewNum = true;
+		}
+
+		function Clear () {
+			Accumulate = 0;
+			PendingOp = "";
+			ClearEntry();
+		}
+	</script>
+</body>
+</html>
